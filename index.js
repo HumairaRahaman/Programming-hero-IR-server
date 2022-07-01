@@ -12,7 +12,7 @@ require("dotenv").config();
 
 app.use(
   cors({
-    origin: "https://programming-hero-ir-test.herokuapp.com/",
+    origin: "https://programming-hero-ir-test.herokuapp.com",
   })
 );
 
