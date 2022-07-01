@@ -197,6 +197,10 @@ app.delete("/api/delete-billing/:id", async (req, res) => {
   }
 });
 
+app.get('/', (req, res) => {
+  res.json('Hello')
+})
+
 app.listen(PORT, () => {
   console.log("Server is running");
 });
