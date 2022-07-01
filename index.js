@@ -12,7 +12,7 @@ require("dotenv").config();
 
 app.use(
   cors({
-    origin: "https://programming-hero-ir-test.herokuapp.com",
+    origin: "https://62bed2ccc118f84a6dc06769--boisterous-churros-6bf907.netlify.app/",
   })
 );
 
