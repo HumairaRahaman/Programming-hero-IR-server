@@ -99,7 +99,7 @@ app.post("/api/login", async (req, res) => {
 //----------------- BILLING -------------//
 
 //Add bill
-app.post("/api/add-billing", async (req, res) => {
+app.post("/api/add-billing", jwtVerify, async (req, res) => {
   const { name, amount, email, phone } = req.body;
   if (!name || !amount || !email || !phone)
     return res.status(403).json("Missing required fields");
@@ -124,7 +124,7 @@ app.post("/api/add-billing", async (req, res) => {
 });
 
 // Get All Bill
-app.get("/api/billing-list", async (req, res) => {
+app.get("/api/billing-list",jwtVerify, async (req, res) => {
   try {
     const client = await connect();
     const db = client.db();
@@ -139,7 +139,7 @@ app.get("/api/billing-list", async (req, res) => {
 });
 
 // Update Bill
-app.put("/api/update-billing/:id", async (req, res) => {
+app.put("/api/update-billing/:id",jwtVerify, async (req, res) => {
   const { name, amount, email, phone } = req.body;
   console.log(req.body)
 
@@ -173,7 +173,7 @@ app.put("/api/update-billing/:id", async (req, res) => {
 });
 
 // Delete Single Bill
-app.delete("/api/delete-billing/:id", async (req, res) => {
+app.delete("/api/delete-billing/:id",jwtVerify, async (req, res) => {
   if (!req.params.id) return res.status(403).json("Missing id");
 
   try {
