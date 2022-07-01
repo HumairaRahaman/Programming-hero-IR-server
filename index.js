@@ -10,11 +10,7 @@ const { ObjectId } = require("mongodb");
 
 require("dotenv").config();
 
-app.use(
-  cors({
-    origin: "https://62bed2ccc118f84a6dc06769--boisterous-churros-6bf907.netlify.app/",
-  })
-);
+app.use(cors());
 
 app.use(express.json());
 
@@ -124,13 +120,15 @@ app.post("/api/add-billing", jwtVerify, async (req, res) => {
 });
 
 // Get All Bill
-app.get("/api/billing-list",jwtVerify, async (req, res) => {
+app.get("/api/billing-list", jwtVerify, async (req, res) => {
   try {
     const client = await connect();
     const db = client.db();
     const BillCollection = db.collection("bill");
 
-    const bill = await BillCollection.find({}).sort({updatedAt: -1}).toArray();
+    const bill = await BillCollection.find({})
+      .sort({ updatedAt: -1 })
+      .toArray();
 
     return res.status(200).json(bill);
   } catch (error) {
@@ -139,9 +137,9 @@ app.get("/api/billing-list",jwtVerify, async (req, res) => {
 });
 
 // Update Bill
-app.put("/api/update-billing/:id",jwtVerify, async (req, res) => {
+app.put("/api/update-billing/:id", jwtVerify, async (req, res) => {
   const { name, amount, email, phone } = req.body;
-  console.log(req.body)
+  console.log(req.body);
 
   if (!req.params.id) return res.status(403).json("Missing id");
 
@@ -173,7 +171,7 @@ app.put("/api/update-billing/:id",jwtVerify, async (req, res) => {
 });
 
 // Delete Single Bill
-app.delete("/api/delete-billing/:id",jwtVerify, async (req, res) => {
+app.delete("/api/delete-billing/:id", jwtVerify, async (req, res) => {
   if (!req.params.id) return res.status(403).json("Missing id");
 
   try {
@@ -197,11 +195,10 @@ app.delete("/api/delete-billing/:id",jwtVerify, async (req, res) => {
   }
 });
 
-app.get('/', (req, res) => {
-  res.json('Hello')
-})
+app.get("/", (req, res) => {
+  res.json("Hello");
+});
 
 app.listen(PORT, () => {
   console.log("Server is running");
 });
-
